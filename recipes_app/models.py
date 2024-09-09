@@ -1,12 +1,13 @@
 from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
 from users.models import User
+from django.conf import settings
 
 class Recipe(models.Model):
     title = models.CharField(max_length=200)
     description = models.TextField(blank=True, null=True)
     cooking_time = models.PositiveIntegerField()
-    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='recipes')
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='recipes')
 
     class Meta:
         ordering = ['title']
@@ -24,7 +25,7 @@ class Review(models.Model):
         ]
     )
     review_text = models.TextField(blank=True, null=True)
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='reviews')
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='reviews')
     recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE)
 
     class Meta:
