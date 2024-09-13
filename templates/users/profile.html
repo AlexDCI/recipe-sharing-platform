@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %}Your Profile{% endblock %}
+
+{% block content %}
+  <h1>{{ profile.user.username }}'s Profile</h1>
+  <p>First Name: {{ profile.first_name }}</p>
+  <p>Last Name: {{ profile.last_name }}</p>
+  <p>Email: {{ profile.user.email }}</p>
+  <p>Bio: {{ profile.bio }}</p>
+  <p>Location: {{ profile.location }}</p>
+  <p>Birth Date: {{ profile.birth_date }}</p>
+
+  {% if profile.avatar %}
+    <img src="{{ profile.avatar.url }}" alt="Profile Avatar" style="max-width: 200px;">
+  {% else %}
+    <p>No avatar uploaded.</p>
+  {% endif %}
+
+  <a href="{% url 'edit_profile' %}">Edit Profile</a>
+{% endblock %}
