@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %}Your Profile{% endblock %}
+
+{% block content %}
+  <div class="row">
+    <div class="col-md-4">
+      <h1>{{ profile.user.username }}'s Profile</h1>
+
+      {% if profile.avatar %}
+        <!-- Исправление: используем profile.avatar.url для аватара -->
+        <img src="{{ profile.avatar.url }}" alt="Profile Avatar" class="img-thumbnail" style="max-width: 100%;">
+      {% else %}
+        <!-- Placeholder изображение, если аватар не установлен -->
+        <img src="https://via.placeholder.com/200" alt="Default Avatar" class="img-thumbnail" style="max-width: 100%;">
+      {% endif %}
+
+      <a href="{% url 'edit_profile' %}" class="btn btn-primary mt-3">Manage Profile</a>
+    </div>
+
+    <div class="col-md-8">
+      <!-- Используем profile для отображения полей профиля -->
+      <ul class="list-group">
+        <li class="list-group-item"><strong>First Name:</strong> {{ profile.first_name }}</li>
+        <li class="list-group-item"><strong>Last Name:</strong> {{ profile.last_name }}</li>
+        <li class="list-group-item"><strong>Email:</strong> {{ profile.user.email }}</li>
+        <li class="list-group-item"><strong>Bio:</strong> {{ profile.bio }}</li>
+        <li class="list-group-item"><strong>Location:</strong> {{ profile.location }}</li>
+        <li class="list-group-item"><strong>Birth Date:</strong> {{ profile.birth_date }}</li>
+      </ul>
+    </div>
+  </div>
+{% endblock %}

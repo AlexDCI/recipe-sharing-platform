@@ -5,4 +5,17 @@
 {% block content %}
   <h1>Welcome to the Home Page</h1>
   <p>This is a test page to ensure that all redirects are working correctly.</p>
+
+  <!-- Проверяем наличие профиля у пользователя -->
+  {% if user.is_authenticated %}
+    {% if not user.profile %}
+      <p>You have not created a profile yet.</p>
+      <a href="{% url 'create_profile' %}">Create Profile</a>
+    {% else %}
+      <p>Your profile is complete.</p>
+      <a href="{% url 'edit_profile' %}">Edit Profile</a>
+    {% endif %}
+  {% else %}
+    <p>Please <a href="{% url 'login' %}">login</a> to create or edit your profile.</p>
+  {% endif %}
 {% endblock %}
